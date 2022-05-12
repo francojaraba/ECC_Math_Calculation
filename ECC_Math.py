@@ -51,6 +51,7 @@ def ng(veces, P, Q):
         z += 1
         xp, yp = xr, yr
 
+    # You can uncomment this line to check the xp and yp values.
     # print(f"The result is ({xp},{yp})")
 
     return xp, yp
@@ -73,18 +74,20 @@ print(f"The calculated secret key by user A is {K1}")
 K2 = ng(veces=nb, P=pa, Q=pa)
 print(f"The calculated secret key by user B is {K2}")
 
-'''Encryption '''
+'''From here is for private message encryption, it will ask for the PM value and k value'''
+
+# Encryption
+
 pm = [112, 26]
 k = 41
 kpb = ng(veces=k, P=pb, Q=pb)
 cm = [ng(veces=k, P=G, Q=G), ng(veces=1, P=pm, Q=kpb)]
 print(f"the ciphertext message is {cm}. User B public key is {pb} ")
 
-'''Decryption'''
+# Decryption
+
 print(f"The private message calculcation would be {cm[1]} - {nb}*{cm[0]}")
 cm1 = ng(veces=nb, P=cm[0], Q=cm[0])
 cm2 = [cm1[0], -cm1[1] % p]
 pm = ng(veces=1, P=cm[1], Q=cm2)
 print(f"The private message received by A is {pm}")
-
-
